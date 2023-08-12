@@ -123,16 +123,17 @@ public class PlayerMoveListener extends AbstractListener {
                     current.eject();
                     vehicle.setVelocity(new Vector());
                     if (vehicle instanceof LivingEntity) {
-                        vehicle.teleport(override.clone());
+                        /*vehicle.teleport(override.clone())*/com.sk89q.worldguard.bukkit.util.TeleportUtils.teleport(vehicle, override.clone());
                     } else {
-                        vehicle.teleport(override.clone().add(0, 1, 0));
+                        /*vehicle.teleport(override.clone().add(0, 1, 0))*/com.sk89q.worldguard.bukkit.util.TeleportUtils.teleport(vehicle, override.clone().add(0, 1, 0));
                     }
                     current = current.getVehicle();
                 }
 
-                player.teleport(override.clone().add(0, 1, 0));
+                /*player.teleport(override.clone().add(0, 1, 0))*/com.sk89q.worldguard.bukkit.util.TeleportUtils.teleport(player, override.clone().add(0, 1, 0));
 
-                Bukkit.getScheduler().runTaskLater(getPlugin(), () -> player.teleport(override.clone().add(0, 1, 0)), 1);
+                //Bukkit.getScheduler().runTaskLater(getPlugin(), () -> player.teleport(override.clone().add(0, 1, 0)), 1);
+                com.sk89q.worldguard.bukkit.util.SchedulerUtils.runTaskLater(getPlugin(), () -> com.sk89q.worldguard.bukkit.util.TeleportUtils.teleport(player, override.clone().add(0, 1, 0)), 1);
             }
         }
     }
@@ -146,7 +147,7 @@ public class PlayerMoveListener extends AbstractListener {
         com.sk89q.worldedit.util.Location loc = session.testMoveTo(localPlayer,
             BukkitAdapter.adapt(event.getPlayer().getLocation()), MoveType.OTHER_CANCELLABLE); // white lie
         if (loc != null) {
-            player.teleport(BukkitAdapter.adapt(loc));
+            /*player.teleport(BukkitAdapter.adapt(loc))*/com.sk89q.worldguard.bukkit.util.TeleportUtils.teleport(player, BukkitAdapter.adapt(loc));
         }
 
         session.uninitialize(localPlayer);
